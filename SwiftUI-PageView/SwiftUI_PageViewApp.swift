@@ -11,7 +11,9 @@ import SwiftUI
 struct SwiftUI_PageViewApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GeometryReader { proxy in
+                ContentView(screenSize: proxy.size)
+            }
         }
     }
 }

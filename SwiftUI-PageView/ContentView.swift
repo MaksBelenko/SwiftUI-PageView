@@ -7,20 +7,39 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
+struct TestData: Identifiable {
+    let id: Int
+    let text: String
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+struct ContentView: View {
+    
+    var screenSize: CGSize
+    @State var offset: CGFloat = 100
+    
+    let intro = [TestData(id: 1, text: "Page 1"),
+                 TestData(id: 2, text: "Page 2"),
+                 TestData(id: 3, text: "Page 3")]
+    
+    var body: some View {
+        VStack {
+            
+            PageView(offset: $offset) {
+                    
+                HStack(spacing: 0) {
+                    ForEach(intro) { intro in
+                        VStack {
+                            Text(intro.text)
+                                .foregroundColor(.yellow)
+                        }
+                        .padding()
+                        .frame(width: screenSize.width)
+                        .background(.green)
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        
     }
 }
